@@ -134,7 +134,7 @@ function knockback(entity){
         let knock = entity.knockback;
         if(knock.current_knockback_duration > 0){
             let direction = new Vec2();
-            if(entity.tag == "sword"){
+            if(entity.tag == "mallet"){
                 direction = Vec2.diff(knock.attacker.owner.transform.pos, entity.transform.pos);
             }
             else{

@@ -11,7 +11,7 @@ class GameEngine {
         this.entity_map = new Map([
             ["player", []],
             ["enemy", []],
-            ["sword", []],
+            ["mallet", []],
         ]);
 
         // Information on the input
@@ -25,7 +25,7 @@ class GameEngine {
             debugging: false,
         };
 
-        this.gravity = false;
+        this.gravity = true;
     };
 
     init(ctx) {

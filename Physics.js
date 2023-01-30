@@ -139,17 +139,17 @@ function player_enemy_collisions(entities){
 }
 
 // Checks for and handles collision between swords and characters
-function sword_character_collisions(entities) {
+function mallet_character_collisions(entities) {
 
     let characters = entities.get("player").concat(entities.get("enemy"));
 
-    for (sword of entities.get("sword")) {
+    for (mallet of entities.get("mallet")) {
         for (character of characters) {
-            if (character != sword.owner) {
-                if (character.collider !== undefined && testAABBAABB(sword.collider.area, character.collider.area)) {
+            if (character != mallet.owner) {
+                if (character.collider !== undefined && testAABBAABB(mallet.collider.area, character.collider.area)) {
                     // Attack goes here
                     if(character.health !== undefined){
-                        hit(character, sword);
+                        hit(character, mallet);
                     }
                 }
             }
@@ -160,13 +160,13 @@ function sword_character_collisions(entities) {
 function physics(entities) {
     character_tile_collisions(entities);
     player_enemy_collisions(entities);
-    sword_character_collisions(entities);
+    mallet_character_collisions(entities);
 
     
     for (entity of gameEngine.entities) {
         if (entity.gravity !== undefined) {
             if (gameEngine.gravity) {
-                entity.gravity.velocity += .08;
+                entity.gravity.velocity += .02;
             }
             else {
                 entity.gravity.velocity = 0.0;

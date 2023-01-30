@@ -83,5 +83,4 @@ const screenY = () => {
 
 const state_enum={idle: 0,
     walking: 1,
-    slashing: 2,
-    jumping: 3 }
+    jumping: 2 }
