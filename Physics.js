@@ -111,12 +111,15 @@ function prevent_overlap(a, b) {
 // Checks for and handles collision between characters and tiles
 function character_tile_collisions(entities) {
 
-    let characters = entities.get("player").concat(entities.get("enemy"));
+    let characters = entities.get("player").concat(entities.get("player_two")).concat(entities.get("enemy"));
 
     for (character of characters) {
         if (character.collider !== undefined && character.collider.block_move) {
             for (tile of entities.get("tile")) {
                 prevent_overlap(character, tile);
+            }
+            for(blocks of entities.get("block")){
+                prevent_overlap(character, blocks);
             }
         }
     }
@@ -124,13 +127,21 @@ function character_tile_collisions(entities) {
 
 function player_enemy_collisions(entities){
     
-    let characters = entities.get("player").concat(entities.get("enemy"));
+    let characters = entities.get("player").concat(entities.get("player_two")).concat(entities.get("enemy"));
 
     for (player of entities.get("player")){
         for (character of characters){
             if(character.tag != "player"){
                 if (character.collider !== undefined && testAABBAABB(player.collider.area, character.collider.area)) {
-                    console.log("PLAYER HIT");
+                    hit(player, character);
+                }
+            }
+        }
+    }
+    for (player of entities.get("player_two")){
+        for (character of characters){
+            if(character.tag != "player_two"){
+                if (character.collider !== undefined && testAABBAABB(player.collider.area, character.collider.area)) {
                     hit(player, character);
                 }
             }
@@ -157,10 +168,27 @@ function mallet_character_collisions(entities) {
     }
 }
 
+// Checks for and handles collision between swords and characters
+function mallet_block_collisions(entities) {
+
+    let characters = entities.get("block");
+
+    for (mallet of entities.get("mallet")) {
+        for (character of characters) {
+            if (character != mallet.owner) {
+                if (character.collider !== undefined && testAABBAABB(mallet.collider.area, character.collider.area) && mallet.direction == 1) {
+                    character.removeFromWorld = true;
+                }
+            }
+        }
+    }
+}
+
 function physics(entities) {
     character_tile_collisions(entities);
     player_enemy_collisions(entities);
     mallet_character_collisions(entities);
+    mallet_block_collisions(entities);
 
     
     for (entity of gameEngine.entities) {

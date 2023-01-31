@@ -1,11 +1,11 @@
-class Player{
+class Player_Two{
     constructor(){
         // Game reference we pass in
         this.game = gameEngine;
 
         // Components
-        this.tag = "player";
-        this.transform = new Transform(new Vec2(16, 400), new Vec2(0,0), 1, new Vec2(0,0));
+        this.tag = "player_two";
+        this.transform = new Transform(new Vec2(64, 400), new Vec2(0,0), 1, new Vec2(0,0));
         this.health = new Health(3, 3);
         this.collider = new Collider(new AABB(this.transform.pos, 8, 8), true, true, false);
         this.knockback = new Knockback();
@@ -13,7 +13,7 @@ class Player{
         this.gravity = new Gravity();
 
         // Reference to our spritesheet
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/player_sheet.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/player_two_sheet.png");
 
         // Some state variables
         this.facing = 0; // 0 = right, 1 = left, 2 = up, 3 = down
@@ -45,7 +45,7 @@ class Player{
 
     // Set up our animations variable
     loadAnimations(){
-        for (let i = 0; i < 5; i++){ // 5 States, idle, walking, jumping, smacking
+        for (let i = 0; i < 4; i++){ // 4 States, idle, walking,
             this.animations.push([]);
             for (let j = 0; j < 2; j++){ // 2
                 this.animations[i].push([]);
@@ -61,7 +61,7 @@ class Player{
         this.animations[0][1] = new Animator(this.spritesheet, 0, 0, 16, 24, 1, 1, true);
 
 
-        //Moving animation, state 1
+        //Moving animation, state 2
 
         //facing right
         this.animations[1][0] = new Animator(this.spritesheet, 0, 24, 16, 24, 4, 0.2, true);
@@ -70,7 +70,7 @@ class Player{
         this.animations[1][1] = new Animator(this.spritesheet, 0, 0, 16, 24, 4, 0.2, true);
 
 
-        // Jump animations, state 2
+        // Jump animations, state 5
 
         // jumping upward
         //facing right
@@ -79,7 +79,7 @@ class Player{
         //facing left
         this.animations[2][1] = new Animator(this.spritesheet, 16, 48, 16, 24, 1, 0.28, true);
 
-        // jumping downwards
+        // jumping upward
         //facing right
         this.animations[3][0] = new Animator(this.spritesheet, 32, 72, 16, 24, 1, 0.28, true);
 
@@ -119,7 +119,7 @@ class Player{
     // -----------  we do not actually change states here, just set booleans. I.e. "attacking" ------------------ //
     check_input(){
         //Jump check
-        if(this.game.keys[" "] && this.jump_cooldown >= 0 && this.grounded){ //Pressing space
+        if(this.game.keys["ArrowUp"] && this.jump_cooldown >= 0 && this.grounded){ //Pressing space
             this.jump();
             this.distance_remaining = this.jump_distance;
             this.jump_cooldown -= gameEngine.clockTick;
@@ -155,7 +155,7 @@ class Player{
         this.transform.velocity.y = 0;
 
         if(!this.knockback.active && this.state != state_enum.jumping && this.state != 3){
-            this.transform.velocity.x = ((-(this.game.keys["a"] ? 1: 0) + (this.game.keys["d"] ? 1: 0)) * this.walk_speed *this.game.clockTick);
+            this.transform.velocity.x = ((-(this.game.keys["ArrowLeft"] ? 1: 0) + (this.game.keys["ArrowRight"] ? 1: 0)) * this.walk_speed *this.game.clockTick);
         }
         else if (this.knockback.active){
             knockback(this);

@@ -9,7 +9,7 @@ class Mallet{
         // Decide where the mallet will initially start
         switch(this.facing){
             case 0:
-                this.transform = new Transform(new Vec2(mallet_pos.x-32, mallet_pos.y));
+                this.transform = new Transform(new Vec2(mallet_pos.x-12, mallet_pos.y));
                 break;
             case 1:
                 this.transform = new Transform(new Vec2(mallet_pos.x+12, mallet_pos.y));

@@ -143,7 +143,6 @@ function knockback(entity){
             direction.normalize();
             direction =  Vec2.scale(direction, knock.knockback_speed * gameEngine.clockTick);
             entity.transform.velocity = new Vec2(-direction.x, -direction.y);
-            console.log("Velocity", entity.transform.velocity);
             knock.current_knockback_duration -= gameEngine.clockTick;
         }
         else{
