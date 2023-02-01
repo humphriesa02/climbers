@@ -91,9 +91,6 @@ class Player_Two{
         if(this.invincible.active){
             invulnerability_active(this);
         }
-        if(this.state == state_enum.jumping && this.gravity.velocity >= 0){
-            this.state = 3;
-        }
         this.check_input();
         this.check_animation_end();
         this.movement();
@@ -110,7 +107,7 @@ class Player_Two{
         this.state = state_enum.jumping;
         let mallet = new Mallet(this.game, this.facing, this.transform.pos, this);
         this.game.addEntity(mallet);
-        this.gravity.velocity = -1.5;
+        this.gravity.velocity = -2.2;
         this.grounded = false;
     }
 
@@ -170,7 +167,10 @@ class Player_Two{
             this.facing = 1;
         }
 
-        if(this.state != state_enum.jumping && this.state != 3){
+        if(this.gravity.velocity >= 0.4){
+            this.state = 3;
+        }
+        else if(this.state != state_enum.jumping && this.state != 3){
             if (this.transform.velocity.x == 0 && this.transform.velocity.y == 0){
                 this.state = state_enum.idle; // idle state
             }

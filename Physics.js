@@ -194,7 +194,7 @@ function physics(entities) {
     for (entity of gameEngine.entities) {
         if (entity.gravity !== undefined) {
             if (gameEngine.gravity) {
-                entity.gravity.velocity += .02;
+                entity.gravity.velocity += .04;
             }
             else {
                 entity.gravity.velocity = 0.0;

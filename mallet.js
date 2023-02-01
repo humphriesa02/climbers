@@ -39,14 +39,14 @@ class Mallet{
         // mallet slash animations
 
         // facing right, up
-        this.animations[0][0] = new Animator(this.spritesheet, 0, 8, 8, 8, 1, 1, false);
+        this.animations[0][0] = new Animator(this.spritesheet, 0, 8, 8, 8, 1, 1, true);
         //facing right, down
-        this.animations[0][1] = new Animator(this.spritesheet, 8, 8, 8, 8, 1, 1, false);
+        this.animations[0][1] = new Animator(this.spritesheet, 8, 8, 8, 8, 1, 1, true);
 
         // facing left, up
-        this.animations[1][0] = new Animator(this.spritesheet, 0, 0, 8, 8, 1, 1, false);
+        this.animations[1][0] = new Animator(this.spritesheet, 0, 0, 8, 8, 1, 1, true);
         // facing left, down
-        this.animations[1][1] = new Animator(this.spritesheet, 8, 0, 8, 8, 1, 1, false);
+        this.animations[1][1] = new Animator(this.spritesheet, 8, 0, 8, 8, 1, 1, true);
 
     }
 
@@ -79,7 +79,7 @@ class Mallet{
                 break;
         }
 
-        if(this.owner.grounded){
+        if(this.owner.grounded || this.owner.removeFromWorld){
             this.removeFromWorld = true;
         }
       
